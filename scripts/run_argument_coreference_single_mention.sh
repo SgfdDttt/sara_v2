@@ -15,7 +15,6 @@ if [[ ! -f $COREF_SCORER ]]; then
 fi
 
 # CONSTANTS AND DATA
-root_dir=/export/c12/nholzen/tax_law
 gold_coref_conll=$PROCESSED_DATA/coref.conll
 # make sure the data is up to date
 python code/spans2conll_coref.py --boundaries $BOUNDARIES \
