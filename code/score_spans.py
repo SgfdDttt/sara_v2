@@ -1,8 +1,8 @@
 import sys,glob,os, argparse
 
 parser = argparse.ArgumentParser(description='Postprocess rspans')
-parser.add_argument('--statutes', type=str, required=True,
-                    help='path to statutes folder')
+parser.add_argument('--spans', type=str, required=True,
+                    help='path to spans folder')
 parser.add_argument('--boundaries', type=str, required=True,
                     help='path to boundaries folder')
 parser.add_argument('--candidates', type=str, required=True,
@@ -11,7 +11,7 @@ args = parser.parse_args()
 
 
 gold_spans_dir=args.spans.rstrip('/')
-boundaries_dir=args.bounaries.rstrip('/')
+boundaries_dir=args.boundaries.rstrip('/')
 candidate_spans_dir = args.candidates.rstrip('/')
 tolerance = 0 # whether or not to tolerate spans that deviate by some characters
 SPLITS=[[68,3301,7703],[1],[151],[152],[2],[63],[3306]]
