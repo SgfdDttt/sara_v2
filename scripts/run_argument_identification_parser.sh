@@ -15,7 +15,7 @@ exp_dir=$EXP_DIR/argument_identification_parser
 mkdir -p $exp_dir
 # run stanford parser on statutes
 parser_output=$exp_dir/parser_output.txt
-bash $STANFORD_PARSER/lexparser.sh $STATUTES/*  > $parser_output
+bash code/lexparser.sh $STATUTES/*  > $parser_output
 # find spans
 rspan_output=$exp_dir/rspan_output.txt
 python code/rspan.py $parser_output $rspan_output
