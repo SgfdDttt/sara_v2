@@ -11,7 +11,7 @@ The folder `scripts` contains all you need to reproduce the experiments from the
 To run the scripts in this repository, you will need a number of other pieces of code. Either go through the instructions below, or run `bash scripts/get_dependencies.sh`.
 
 ## General
-Install all the needed packages into a dedicated virtual environment with `pip install -r requirements.txt`
+The code in this repository relies on bash and Python 3.5.3. Install all the needed packages into a dedicated virtual environment with `pip install -r requirements.txt`
 
 ## Data
 Download SARA and SARAv2 and place them in this repository under `sara` and `sara_v2` respectively; or run `bash scripts/get_data.sh`.
@@ -20,7 +20,7 @@ Download SARA and SARAv2 and place them in this repository under `sara` and `sar
 The scorer used for conventional coreference metrics can be found in [this Github repository](https://github.com/conll/reference-coreference-scorers). Clone the latter repository from within your clone of the SARA v2 repository.
 
 ## LegalBert
-Download Legal Bert from the website of [Tax Law NLP Resources](https://archive.data.jhu.edu/dataset.xhtml?persistentId=doi:10.7281/T1/N1X6I4) or directly from [here](https://archive.data.jhu.edu/file.xhtml?persistentId=doi:10.7281/T1/N1X6I4/8NZ3AD&version=2.0), and unzip the file into this repository.
+Download Legal Bert from the website of [Tax Law NLP Resources](https://archive.data.jhu.edu/dataset.xhtml?persistentId=doi:10.7281/T1/N1X6I4) or directly from [here](https://archive.data.jhu.edu/file.xhtml?persistentId=doi:10.7281/T1/N1X6I4/8NZ3AD&version=2.0), and unzip the file into this repository, into a folder named `LegalBert`, eg with the command `unzip LegalBert.zip -d LegalBert`.
 
 ## Stanford parser
 This repository uses [Version 3.9.2](https://nlp.stanford.edu/software/stanford-parser-full-2018-10-17.zip) of the parser, timestamped 2018-10-17. Download the parser using the preceding link and unzip it into this repository.
