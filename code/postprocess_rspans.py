@@ -3,15 +3,15 @@ import glob, os, argparse
 parser = argparse.ArgumentParser(description='Postprocess rspans')
 parser.add_argument('--statutes', type=str, required=True,
                     help='path to statutes folder')
-parser.add_argument('--input', type=str, required=True
+parser.add_argument('--input', type=str, required=True,
                     help='path to rspans')
-parser.add_argument('--output', type=str, required=True,
+parser.add_argument('--output-dir', type=str, required=True,
                     help='name of folder to write output to')
 args = parser.parse_args()
 
 statutes_dir=args.statutes.rstrip('/')
 input_file=args.input
-output_dir=args.output.rstrip('/')
+output_dir=args.output_dir.rstrip('/')
 try:
     os.mkdir(output_dir)
 except:

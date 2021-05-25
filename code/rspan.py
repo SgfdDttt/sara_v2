@@ -1,4 +1,4 @@
-import re
+import re, sys
 
 NOUN_SET = set([
     'NNP',
@@ -154,6 +154,8 @@ def get_noun_nonterminals(root, array=None, noun_set=None):
 
 if __name__ == '__main__':
     INCLUDE_NER = True
+
+    assert len(sys.argv) == 3
 
     trees = build_trees_from_path(sys.argv[1])
     output_file = sys.argv[2]
