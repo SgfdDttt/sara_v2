@@ -108,9 +108,9 @@ for key in key2bounds:
     key2spans[key]=sorted(key2spans[key])
 # split into train and test, and into gold and automatic
 splits={'train': [line.strip('\n') for line in \
-        open(splits_dir+'/train_split.txt','r')],\
+        open(splits_dir+'/train','r')],\
         'test': [line.strip('\n') for line in \
-        open(splits_dir+'/test_split.txt','r')]}
+        open(splits_dir+'/test','r')]}
 data={'train': {'gold':[], 'automatic': []}, \
         'test': {'gold': [], 'automatic': []}}
 def upper_case_dict(d):
