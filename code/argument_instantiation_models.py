@@ -54,7 +54,7 @@ def get_argument_type_arg_only(arg_name):
                 "S33A","S30B","S27","S156","S14","S13A","S2","GROSSINC","EA","DED63","DED151",
                 "COST","BASSD","AP","AGI","ADDSD","AA","ADDITIONAL_AMOUNTS","AMOUNT",
                 "EXEMPTIONS_LIST","MULTIPLIER","TOTAL_AMOUNT","AMOUNT_DEDUCTIONS_OUT",
-                "AMOUNT_DEDUCTIONS_IN","ITEMDED"],
+                "AMOUNT_DEDUCTIONS_IN","ITEMDED","REMUNERATION2"],
             'span': ["REASON", "WORKDAY","WIFE","TAXY","TAXP","STUDENT","SPOUSE","SERVICE",
                 "S98","S92",
                 "S9C","S89","S81","S8","S77","S65","S62","S61","S6","S59B","S59A","S5","S47",
@@ -66,7 +66,7 @@ def get_argument_type_arg_only(arg_name):
                 "EMPLOYMENT","EMPLOYER","EMPLOYEE","DEPENDENT","CYB1","CHILDC2A","CALY",
                 "BSSSC2B","S44B","DEDUCTION","PAYER","JOINT_RETURN","START_RELATIONSHIP",
                 "END_RELATIONSHIP","MARRIAGE","END_DAY","START_DAY","SURVIVING_SPOUSE",
-                "PERSON_LIST","REMUNERATION2","REMUNERATION","PREVIOUS_MARRIAGE","REMARRIAGE"],
+                "PERSON_LIST","REMUNERATION","PREVIOUS_MARRIAGE","REMARRIAGE"],
             'binary': ["@TRUTH"]
             }
     for k,v in arg_types.items():
@@ -564,9 +564,13 @@ class DataLoaderPretrain(DataLoader):
         while len(dev)<dev_size:
             if counter['neg']<counter['pos']:
                 key='neg'
+                if len(neg_cases)==0:
+                    break
                 case=neg_cases.pop()
             else:
                 key='pos'
+                if len(pos_cases)==0:
+                    break
                 case=pos_cases.pop()
             dev.extend(cases[key][case])
             counter[key]+=len(cases[key][case])
