@@ -23,7 +23,9 @@ for ((casei=$start_case; casei<$end_case; casei++))
 do
     for ((predi=0; predi<$num_predicates; predi++))
     do
-        timeout 10h python code/run_predicate_and_case.py --cases $CASES --prolog $PROLOG \
-            --case_id $casei --predicate_id $predi --tmp_file "$casei-$predi"
+        timeout 10h python code/run_predicate_and_case.py \
+            --cases $CASES --prolog $PROLOG \
+            --case_id $casei --predicate_id $predi \
+            --tmp_file "$casei-$predi" || exit 0
     done
-done
+done > $SILVER_ARGUMENT_INSTANTIATION
