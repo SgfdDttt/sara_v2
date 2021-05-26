@@ -27,5 +27,5 @@ python code/argument_instantiation_prepare_data.py \
     --silver_argument_instantiation $SILVER_ARGUMENT_INSTANTIATION || exit 0
 
 # BASELINE
-code/argument_instantiation_baseline.py \
+python code/argument_instantiation_baseline.py \
     $PROCESSED_DATA/argument_instantiation_data.json || exit 0
