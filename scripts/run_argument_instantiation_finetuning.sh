@@ -26,7 +26,7 @@ fi
 # CONSTANTS AND DATA
 arg_inst_datafile=$PROCESSED_DATA/argument_instantiation_data.json
 [ -f $arg_inst_datafile ] || python code/argument_instantiation_prepare_data.py \
-    --output_file $arg_inst_datafile \
+    --savefile $PROCESSED_DATA/argument_instantiation_data.json \
     --statutes $STATUTES --cases $CASES --splits $SPLITS --spans $SPANS \
     --boundaries $BOUNDARIES --structure $STRUCTURE \
     --gold_argument_instantiation $ARGUMENT_INSTANTIATION \
