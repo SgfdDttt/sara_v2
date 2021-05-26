@@ -849,6 +849,16 @@ class MixedModel(nn.Module):
                 stop_tok=mapping[stop]
                 if stop_tok is None: # we hit a space
                     stop_tok=mapping[stop-1]
+                if (start_tok is None) and (stop_tok is None):
+                    all_ints=list(filter(lambda x: x is not None, mapping))
+                    if len(all_ints)==0:
+                        mapping=[0]
+                    start_tok = min(all_ints)
+                    stop_tok = max(all_ints)
+                elif stop_tok is None:
+                    stop_tok = start_tok
+                elif start_tok is None:
+                    start_tok = stop_tok
                 for ii in range(start_tok,stop_tok+1):
                     span_masks[name][ii]=1
             assert max(span_masks[name])==1, str(name)
