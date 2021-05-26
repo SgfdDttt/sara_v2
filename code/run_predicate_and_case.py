@@ -1,3 +1,4 @@
+import pyswip
 from pyswip import Prolog, Variable
 import glob,re,os,json,random,copy,itertools,argparse
 
@@ -124,12 +125,12 @@ class PrologEnv:
         return self.engine.query(input)
 
 def dict_to_string(d):
-    print('dict_to_string')
-    print(d)
     output=json.dumps(d)
     return output
 
 def is_variable(s):
+    if isinstance(s, pyswip.easy.Variable):
+        return True
     if not isinstance(s,str):
         return False
     return (s[0]=='_') or (s.startswith('Variable('))
@@ -138,7 +139,6 @@ def format_query_result(d):
     output={}
     for k in sorted(d.keys()):
         v=d[k]
-        print(v,type(v),isinstance(v,Variable))
         if isinstance(v,list):
             output[k]=[]
             for x in v:
@@ -148,7 +148,7 @@ def format_query_result(d):
                     output[k].append(x)
         elif not isinstance(v,Variable):
             if not is_variable(v):
-                output[k]=v
+                output[k] = v.strip('"') if isinstance(v,str) else v
     return output
 
 all_predicates=[]
@@ -316,7 +316,7 @@ for substitution in substitution_sets:
     for rr in results:
         positive_queries.add(str(case.filename)+'\t'+str(predicate.name) \
                 +'\t'+dict_to_string(format_query_result(substitution)) \
-                +'\t'+dict_to_string(rr))
+                +'\t'+dict_to_string(format_query_result(rr)))
     # Tier A queries: some arguments left open
     negative_queries['A'].extend(corrupt_query(substitution)) 
     # Tier B queries: all arguments specified
@@ -333,7 +333,6 @@ positive_queries=sorted(positive_queries)
 random.shuffle(positive_queries)
 while (len(positive_queries)>0):
     substitution=positive_queries.pop(0)
-    print(substitution)
 for key in ['A','B','C','D']:
     nq=negative_queries[key]
     while (len(nq)>0):
