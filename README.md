@@ -30,3 +30,7 @@ This repository uses [Version 3.9.2](https://nlp.stanford.edu/software/stanford-
 Some of these scripts rely on GPUs. Since there is no universal configuration for these devices, it is up to you to modify the scripts in the right places. For that, grep for 'GPU' in the bash scripts.
 
 Some scripts will need to download models from [huggingface](https://huggingface.co/), which requires an internet connection.
+
+## Argument identification with BERT-based CRF
+
+Specifically for the scripts running argument identification with a BERT-based CRF, you need Python 3.7.9. and Allennlp and Huggingface. Those requireents are captured in `requirements_crf.txt`. The requirements for the rest of the codebase are not compatible with `requirements_crf.txt`, so you need a separate environment.
