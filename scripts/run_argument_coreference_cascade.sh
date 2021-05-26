@@ -22,14 +22,14 @@ fi
 gold_coref_conll=$PROCESSED_DATA/coref.conll
 # make sure the data is up to date
 python code/spans2conll_coref.py --boundaries $BOUNDARIES \
-	--spans $SPANS --savefile $gold_coref_conll
+	--spans $SPANS --savefile $gold_coref_conll || exit 0
 cp $gold_coref_conll coref.tmp
-python code/renumber_singleton_coref_clusters_conll.py coref.tmp $gold_coref_conll
+python code/renumber_singleton_coref_clusters_conll.py coref.tmp $gold_coref_conll || exit 0
 rm coref.tmp
 
 # SINGLE MENTION COREFERENCE BASELINE
 output_file=$EXP_DIR/cascade_coref.json
-python code/coreference_cascade.py $argument_identification_exp_dir $output_file
+python code/coreference_cascade.py $argument_identification_exp_dir $output_file || exit 0
 
 # SCORE BASELINE
-python code/score_coref_json.py $output_file
+python code/score_coref_json.py $output_file || exit 0
