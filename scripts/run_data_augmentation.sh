@@ -28,4 +28,4 @@ do
             --case_id $casei --predicate_id $predi \
             --tmp_file "$casei-$predi" || exit 0
     done
-done > $SILVER_ARGUMENT_INSTANTIATION
+done | grep '^\(A\|B\|C\)' | cut -f2- > $SILVER_ARGUMENT_INSTANTIATION
