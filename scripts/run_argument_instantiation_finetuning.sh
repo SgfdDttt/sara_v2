@@ -50,7 +50,7 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_MODEL/cluster_model.pkl \
         --expdir $exp_dir2 --training_stage 2 --max_epochs 100 --patience 10 --max_depth 3 --weight_decay 0 \
-        --learning_rate 1e-05 --update_period 64 --batch 4 --split_index $spliti
+        --learning_rate 0.01 --update_period 128 --batch 4 --split_index $spliti
 done
 
 # FINETUNING - ABLATIONS
@@ -65,20 +65,22 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     cp $PRETRAINED_MODEL/best_model.pt $exp_dir2/checkpoint.pt
     CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_MODEL/cluster_model.pkl \
-        --expdir $exp_dir2 --training_stage 1 --max_epochs 100 --patience 20 --update_period 64 \
-        --learning_rate 0.01 --batch 4 --weight_decay 0 --split_index $spliti
+        --expdir $exp_dir2 --training_stage 1 --max_epochs 100 --patience 20 \
+        --weight_decay 0 --split_index $spliti \
+        --update_period 256 --learning_rate 0.01 --batch 4
 done
 
 # -PRETRAIN
-exp_dir=$EXP_DIR/argument_instantiation_finetuning_no_structure_no_pretrain
+exp_dir=$EXP_DIR/argument_instantiation_finetuning_no_pretrain
 mkdir -p $exp_dir
 for spliti in 0 1 2 3 4 5 6 7 8 9; do
     exp_dir2=$exp_dir/split_$spliti
     mkdir -p $exp_dir2
     CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $exp_dir2/cluster_model.pkl \
-        --expdir $exp_dir2 --training_stage 2 --max_epochs 100 --patience 10 --batch 4 \
-        --update_period 64 --learning_rate 0.01 --weight_decay 0 --max_depth 3 --split_index $spliti
+        --expdir $exp_dir2 --training_stage 2 --max_epochs 100 --patience 10 \
+        --weight_decay 0 --split_index $spliti \
+        --batch 4 --max_depth 3 --update_period 64 --learning_rate 0.01 
 done
 
 # -STRUCTURE, -PRETRAIN
@@ -90,5 +92,5 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $exp_dir2/cluster_model.pkl \
         --expdir $exp_dir2 --training_stage 1 --max_epochs 100 --patience 20 --weight_decay 0 \
-        --learning_rate 0.01 --split_index $spliti --batch 4 --update_period 64
+        --split_index $spliti --batch 4 --learning_rate 0.01 --update_period 128
 done
