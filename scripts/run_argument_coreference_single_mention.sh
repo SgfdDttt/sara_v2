@@ -18,9 +18,9 @@ fi
 gold_coref_conll=$PROCESSED_DATA/coref.conll
 # make sure the data is up to date
 python code/spans2conll_coref.py --boundaries $BOUNDARIES \
-	--spans $SPANS --savefile $gold_coref_conll
+	--spans $SPANS --savefile $gold_coref_conll || exit 0
 cp $gold_coref_conll coref.tmp
-python code/renumber_singleton_coref_clusters_conll.py coref.tmp $gold_coref_conll
+python code/renumber_singleton_coref_clusters_conll.py coref.tmp $gold_coref_conll || exit 0
 rm coref.tmp
 
 # SINGLE MENTION COREFERENCE BASELINE
@@ -28,15 +28,15 @@ output_dir=$EXP_DIR/single_mention_coref
 mkdir -p $output_dir
 output_file=$EXP_DIR/single_mention_coref.conll
 python code/coreference_baseline_single_mention.py --spans $SPANS \
-	--statutes $STATUTES --output_dir $output_dir
+	--statutes $STATUTES --output_dir $output_dir || exit 0
 python code/spans2conll_coref.py --boundaries $BOUNDARIES \
-	--spans $output_dir --savefile $output_file
+	--spans $output_dir --savefile $output_file || exit 0
 cp $output_file coref.tmp
-python code/renumber_singleton_coref_clusters_conll.py coref.tmp $output_file
+python code/renumber_singleton_coref_clusters_conll.py coref.tmp $output_file || exit 0
 rm coref.tmp
 
 # SCORE BASELINE
-python code/score_coref_conll.py $gold_coref_conll $output_file
+python code/score_coref_conll.py $gold_coref_conll $output_file || exit 0
 for x in muc ceafm ceafe blanc
 do
     echo $x
