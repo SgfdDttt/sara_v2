@@ -20,12 +20,12 @@ done
 
 # CONSTANTS AND DATA
 python code/argument_instantiation_prepare_data.py \
-    --output_file $PREPROCESSED_DATA/argument_instantiation_data.json \
+    --savefile $PROCESSED_DATA/argument_instantiation_data.json \
     --statutes $STATUTES --cases $CASES --splits $SPLITS --spans $SPANS \
     --boundaries $BOUNDARIES --structure $STRUCTURE \
     --gold_argument_instantiation $ARGUMENT_INSTANTIATION \
-    --silver_argument_instantiation $SILVER_ARGUMENT_INSTANTIATION
+    --silver_argument_instantiation $SILVER_ARGUMENT_INSTANTIATION || exit 0
 
 # BASELINE
 code/argument_instantiation_baseline.py \
-    $PREPROCESSED_DATA/argument_instantiation_data.json
+    $PROCESSED_DATA/argument_instantiation_data.json || exit 0

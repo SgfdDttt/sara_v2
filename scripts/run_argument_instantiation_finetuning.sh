@@ -24,7 +24,7 @@ if [[ ! -d $PRETRAINED_MODEL ]]; then
 fi
 
 # CONSTANTS AND DATA
-arg_inst_datafile=$PREPROCESSED_DATA/argument_instantiation_data.json
+arg_inst_datafile=$PROCESSED_DATA/argument_instantiation_data.json
 [ -f $arg_inst_datafile ] || python code/argument_instantiation_prepare_data.py \
     --output_file $arg_inst_datafile \
     --statutes $STATUTES --cases $CASES --splits $SPLITS --spans $SPANS \
@@ -32,7 +32,7 @@ arg_inst_datafile=$PREPROCESSED_DATA/argument_instantiation_data.json
     --gold_argument_instantiation $ARGUMENT_INSTANTIATION \
     --silver_argument_instantiation $SILVER_ARGUMENT_INSTANTIATION
 
-arg_inst_splits_datafile=$PREPROCESSED_DATA/argument_instantiation_data_splits.json
+arg_inst_splits_datafile=$PROCESSED_DATA/argument_instantiation_data_splits.json
 [ -f $arg_inst_splits_datafile ] || python code/argument_instantiation_split_data.py \
     $arg_inst_datafile $arg_inst_splits_datafile
 
