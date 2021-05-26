@@ -3,7 +3,7 @@ import glob,os,argparse
 parser = argparse.ArgumentParser(description='Run string matching coref baseline')
 parser.add_argument('--statutes', type=str, required=True,
                     help='path to statutes folder')
-parser.add_argument('--spans', type=str, required=True
+parser.add_argument('--spans', type=str, required=True,
                     help='path to span folder')
 parser.add_argument('--output_dir', type=str, required=True,
                     help='name of file to save data in')
