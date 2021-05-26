@@ -1,4 +1,4 @@
-import sys, glob
+import sys, glob, argparse
 
 parser = argparse.ArgumentParser(description='Convert spans to conll coref')
 parser.add_argument('--spans', type=str, required=True,
