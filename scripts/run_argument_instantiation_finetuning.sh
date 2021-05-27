@@ -17,9 +17,9 @@ for filename in $ARGUMENT_INSTANTIATION $SILVER_ARGUMENT_INSTANTIATION; do
     fi
 done
 
-PRETRAINED_MODEL_FOLDER=/export/c12/nholzen/sara_v2/exp/argument_instantiation_pretraining # TODO provide a pointer to the folder containing the files of your pretrained model
-PRETRAINED_MODEL=$PRETRAINED_MODEL_FOLDER/stage_2/best_model.pt # TODO provide a pointer to the folder containing the files of your pretrained model
-PRETRAINED_CLUSTER_MODEL=$PRETRAINED_MODEL_FOLDER/cluster_model.pkl # TODO provide a pointer to the folder containing the files of your pretrained model
+PRETRAINED_MODEL_FOLDER=$EXP_DIR/argument_instantiation_pretraining # provide a pointer to the folder containing the files of your pretrained model
+PRETRAINED_MODEL=$PRETRAINED_MODEL_FOLDER/stage_2/best_model.pt
+PRETRAINED_CLUSTER_MODEL=$PRETRAINED_MODEL_FOLDER/cluster_model.pkl
 if [[ ! -d $PRETRAINED_MODEL_FOLDER ]]; then
     echo "missing a pretrained model folder or does not point to a directory"
     exit 0
@@ -58,8 +58,8 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     mkdir -p $exp_dir2
     cp $PRETRAINED_MODEL $exp_dir2/checkpoint.pt || exit 0
     CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
-        --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_MODEL/cluster_model.pkl \
-        --expdir $exp_dir2 --training_stage 2 --max_epochs 2 --patience 10 --max_depth 3 \
+        --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_CLUSTER_MODEL \
+        --expdir $exp_dir2 --training_stage 2 --max_epochs 100 --patience 10 --max_depth 3 \
         --weight_decay 0 --learning_rate 0.01 --update_period 128 --batch 4 \
         --split_index $spliti || exit 0
 done
@@ -75,8 +75,8 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     mkdir -p $exp_dir2
     cp $PRETRAINED_MODEL $exp_dir2/checkpoint.pt || exit 0
     CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
-        --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_MODEL/cluster_model.pkl \
-        --expdir $exp_dir2 --training_stage 1 --max_epochs 2 --patience 20 \
+        --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_CLUSTER_MODEL \
+        --expdir $exp_dir2 --training_stage 1 --max_epochs 100 --patience 20 \
         --weight_decay 0 --split_index $spliti --update_period 256 \
         --learning_rate 0.01 --batch 4 || exit 0
 done
@@ -89,7 +89,7 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     mkdir -p $exp_dir2
     CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $exp_dir2/cluster_model.pkl \
-        --expdir $exp_dir2 --training_stage 2 --max_epochs 2 --patience 10 \
+        --expdir $exp_dir2 --training_stage 2 --max_epochs 100 --patience 10 \
         --weight_decay 0 --split_index $spliti --batch 4 --max_depth 3 \
         --update_period 64 --learning_rate 0.01 || exit 0
 done
@@ -102,6 +102,6 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     mkdir -p $exp_dir2
     CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $exp_dir2/cluster_model.pkl \
-        --expdir $exp_dir2 --training_stage 1 --max_epochs 2 --patience 20 --weight_decay 0 \
+        --expdir $exp_dir2 --training_stage 1 --max_epochs 100 --patience 20 --weight_decay 0 \
         --split_index $spliti --batch 4 --learning_rate 0.01 --update_period 128 || exit 0
 done
