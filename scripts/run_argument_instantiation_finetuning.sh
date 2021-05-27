@@ -57,7 +57,7 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     exp_dir2=$exp_dir/split_$spliti
     mkdir -p $exp_dir2
     cp $PRETRAINED_MODEL $exp_dir2/checkpoint.pt || exit 0
-    CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
+    CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_CLUSTER_MODEL \
         --expdir $exp_dir2 --training_stage 2 --max_epochs 100 --patience 10 --max_depth 3 \
         --weight_decay 0 --learning_rate 0.01 --update_period 128 --batch 4 \
@@ -74,7 +74,7 @@ for spliti in 0 1 2 3 4 5 6 7 8 9; do
     exp_dir2=$exp_dir/split_$spliti
     mkdir -p $exp_dir2
     cp $PRETRAINED_MODEL $exp_dir2/checkpoint.pt || exit 0
-    CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
+    CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $PRETRAINED_CLUSTER_MODEL \
         --expdir $exp_dir2 --training_stage 1 --max_epochs 100 --patience 20 \
         --weight_decay 0 --split_index $spliti --update_period 256 \
@@ -87,7 +87,7 @@ mkdir -p $exp_dir
 for spliti in 0 1 2 3 4 5 6 7 8 9; do
     exp_dir2=$exp_dir/split_$spliti
     mkdir -p $exp_dir2
-    CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
+    CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $exp_dir2/cluster_model.pkl \
         --expdir $exp_dir2 --training_stage 2 --max_epochs 100 --patience 10 \
         --weight_decay 0 --split_index $spliti --batch 4 --max_depth 3 \
@@ -100,7 +100,7 @@ mkdir -p $exp_dir
 for spliti in 0 1 2 3 4 5 6 7 8 9; do
     exp_dir2=$exp_dir/split_$spliti
     mkdir -p $exp_dir2
-    CUDA_VISIBLE_DEVICES=`free-gpu` python code/train_argument_instantiation.py \
+    CUDA_VISIBLE_DEVICES=`GPU` python code/train_argument_instantiation.py \
         --datafile $arg_inst_splits_datafile --gmm_model_file $exp_dir2/cluster_model.pkl \
         --expdir $exp_dir2 --training_stage 1 --max_epochs 100 --patience 20 --weight_decay 0 \
         --split_index $spliti --batch 4 --learning_rate 0.01 --update_period 128 || exit 0

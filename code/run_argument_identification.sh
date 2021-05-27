@@ -40,13 +40,15 @@ do
     mkdir -p $split_dir
     if [ $thaw_top_layer -eq 1 ]
     then
-        CUDA_VISIBLE_DEVICES=`free-gpu` python code/argument_identification_train_bert_crf.py \
-            --datafile $PROCESSED_DATA/argument_identification_bert_data.json --dev $dev_sections \
-            --test $test_sections --expdir $split_dir --bert_model $bert_model --thaw_top_layer || exit 0
+        CUDA_VISIBLE_DEVICES=`GPU` python code/argument_identification_train_bert_crf.py \
+            --datafile $PROCESSED_DATA/argument_identification_bert_data.json \
+            --dev $dev_sections --test $test_sections --expdir $split_dir \
+            --bert_model $bert_model --thaw_top_layer || exit 0
     else
-        CUDA_VISIBLE_DEVICES=`free-gpu` python code/argument_identification_train_bert_crf.py \
-            --datafile $PROCESSED_DATA/argument_identification_bert_data.json --dev $dev_sections \
-            --test $test_sections --expdir $split_dir --bert_model $bert_model || exit 0
+        CUDA_VISIBLE_DEVICES=`GPU` python code/argument_identification_train_bert_crf.py \
+            --datafile $PROCESSED_DATA/argument_identification_bert_data.json \
+            --dev $dev_sections --test $test_sections --expdir $split_dir \
+            --bert_model $bert_model || exit 0
     fi
 done
 python code/aggregate_argument_identification_bert_crf_results.py $exp_dir
