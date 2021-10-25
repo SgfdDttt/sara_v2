@@ -2,7 +2,7 @@
 # common paths used throughout the scripts in this repo
 SARA=sara
 SARA2=sara_v2
-STATUTES=$SARA/statutes/source
+STATUTES=$SARA2/statutes/source
 SPANS=$SARA2/argument_placeholders
 BOUNDARIES=$SARA2/boundaries
 STRUCTURE=$SARA2/structure
@@ -14,5 +14,5 @@ ARGUMENT_INSTANTIATION=$SARA2/argument_instantiation
 SILVER_ARGUMENT_INSTANTIATION=$PROCESSED_DATA/silver_argument_instantiation
 CASES=$SARA2/cases
 SPLITS=$SARA/splits
-PROLOG=$SARA/statutes/prolog
+PROLOG=$SARA2/statutes/prolog
 STANFORD_PARSER=stanford-parser-full-2018-10-17
