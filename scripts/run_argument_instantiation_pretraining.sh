@@ -10,13 +10,18 @@ for dir in $SARA $SARA2 $STATUTES $SPANS $BOUNDARIES $SPLITS $STRUCTURE $LEGAL_B
     fi
 done
 
+if [[ ! -f $SILVER_ARGUMENT_INSTANTIATION ]]; then
+    if [[ -f $SARA2/silver_argument_instantiation ]]; then
+        cp $SARA2/silver_argument_instantiation $SILVER_ARGUMENT_INSTANTIATION
+    fi
+fi
+
 for filename in $ARGUMENT_INSTANTIATION $SILVER_ARGUMENT_INSTANTIATION; do
     if [[ ! -f $filename ]]; then
         echo "missing $filename"
         exit 0
     fi
 done
-
 
 # CONSTANTS AND DATA
 python code/argument_instantiation_prepare_data.py \
