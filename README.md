@@ -1,5 +1,5 @@
 # SARA v2
-This repository contains the code associated with the [SARA v2 paper](https://arxiv.org/abs/2105.07903).
+This repository contains the code associated with the [SARA v2 paper](https://aclanthology.org/2021.acl-long.213.pdf).
 
 # Data
 The data is hosted on [NLLP@JHU](https://nlp.jhu.edu/law/). Look for "SARA v2".
